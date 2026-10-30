@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>约定罐</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ========================= -->
+    <!-- 屏1：开场页 -->
+    <!-- ========================= -->
+    <section id="screen-intro" class="screen active">
+
+        <div class="intro-content">
+
+            <div class="jar-icon">🫙</div>
+
+            <h1 class="intro-title">
+                有些话，说出口以后，值得被好好保存。
+            </h1>
+
+            <button class="start-btn" id="startBtn">
+                开始
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- 屏2：登录 / 注册页 -->
+    <!-- ========================= -->
+    <section id="screen-auth" class="screen">
+
+        <div class="auth-container">
+
+            <div class="auth-logo">
+                🫙
+            </div>
+
+            <h1>欢迎来到约定罐</h1>
+
+            <p class="auth-subtitle">
+                把说过的话，好好存起来。
+            </p>
+
+
+            <!-- 登录 / 注册选择 -->
+            <div id="auth-choice" class="auth-choice">
+
+                <button class="auth-main-btn" id="showLoginBtn">
+                    登录
+                </button>
+
+                <button class="auth-secondary-btn" id="showRegisterBtn">
+                    注册
+                </button>
+
+                <button class="auth-back-btn" data-target="screen-intro">
+                    ← 回到开场
+                </button>
+
+            </div>
+
+
+            <!-- ================= -->
+            <!-- 登录表单 -->
+            <!-- ================= -->
+            <form id="loginForm" class="auth-form hidden">
+
+                <h2>欢迎回来</h2>
+
+                <div class="form-group">
+
+                    <label for="loginUsername">
+                        用户名
+                    </label>
+
+                    <input type="text" id="loginUsername" placeholder="请输入用户名" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="loginPassword">
+                        密码
+                    </label>
+
+                    <input type="password" id="loginPassword" placeholder="请输入密码" required>
+
+                </div>
+
+
+                <button type="submit" class="auth-main-btn">
+                    登录
+                </button>
+
+
+                <button type="button" class="auth-back-btn" id="backToAuthChoice1">
+                    ← 返回
+                </button>
+
+            </form>
+
+
+            <!-- ================= -->
+            <!-- 注册表单 -->
+            <!-- ================= -->
+            <form id="registerForm" class="auth-form hidden">
+
+                <h2>创建你的约定罐</h2>
+
+
+                <div class="form-group">
+
+                    <label for="registerUsername">
+                        用户名
+                    </label>
+
+                    <input type="text" id="registerUsername" placeholder="例如：xiaoming" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="registerNickname">
+                        昵称
+                    </label>
+
+                    <input type="text" id="registerNickname" placeholder="别人会看到的名字" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="registerPassword">
+                        密码
+                    </label>
+
+                    <input type="password" id="registerPassword" placeholder="至少 6 位密码" minlength="6" required>
+
+                </div>
+
+
+                <button type="submit" class="auth-main-btn">
+                    创建账号
+                </button>
+
+
+                <button type="button" class="auth-back-btn" id="backToAuthChoice2">
+                    ← 返回
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- 屏3：主菜单页 -->
+    <!-- ========================= -->
+    <section id="screen-menu" class="screen">
+
+        <header class="menu-header">
+
+            <div class="menu-logo">
+                🫙 约定罐
+            </div>
+
+            <div class="menu-subtitle">
+                把说过的话，好好存起来。
+            </div>
+
+            <!-- 当前用户 -->
+            <div class="current-user">
+                你好，<span id="currentNickname">朋友</span> 👋
+            </div>
+
+            <button id="logoutBtn" class="logout-btn">
+                退出登录
+            </button>
+
+        </header>
+
+
+        <div class="menu-buttons">
+            <button class="menu-btn" data-target="screen-partners" id="openPartnersBtn">
+                <span class="btn-icon">👥</span>
+                <span class="btn-text">我的约定对象</span>
+            </button>
+
+            <button class="menu-btn" data-target="screen-create">
+
+                <span class="btn-icon">➕</span>
+                <span class="btn-text">创建约定</span>
+
+            </button>
+
+
+            <button class="menu-btn" data-target="screen-list">
+
+                <span class="btn-icon">📖</span>
+                <span class="btn-text">我的约定</span>
+
+            </button>
+
+
+            <button class="menu-btn" data-target="screen-memory">
+
+                <span class="btn-icon">🌙</span>
+                <span class="btn-text">回忆馆</span>
+
+            </button>
+
+
+            <button class="menu-btn" data-target="screen-about">
+
+                <span class="btn-icon">✦</span>
+                <span class="btn-text">关于约定罐</span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- 屏4：创建约定页 -->
+    <!-- ========================= -->
+    <section id="screen-create" class="screen">
+
+        <div class="page-header">
+
+            <button class="back-btn" data-target="screen-menu">
+                ← 返回
+            </button>
+
+            <h2>存入一个新的约定</h2>
+
+        </div>
+
+
+        <form id="promiseForm" class="create-form">
+            <!-- 选择约定对象 -->
+            <div class="form-group">
+                <label for="promisePartner">约定对象</label>
+
+                <select id="promisePartner" name="partnerId">
+                    <option value="">暂不选择约定对象</option>
+                </select>
+
+                <small class="form-hint">
+                    选择与你共同完成这份约定的人或角色。
+                    你也可以暂时不选择。
+                </small>
+            </div>
+
+            <div class="form-group">
+
+                <label for="title">
+                    约定名称
+                </label>
+
+                <input type="text" id="title" placeholder="例如：一起去看海" required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="description">
+                    约定内容
+                </label>
+
+                <textarea id="description" placeholder="写下你们之间的约定..." required></textarea>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="location">
+                        地点
+                    </label>
+
+                    <input type="text" id="location" placeholder="例如：青岛">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="promiseDate">
+                        约定日期
+                    </label>
+
+                    <input type="date" id="promiseDate">
+
+                </div>
+
+            </div>
+
+
+            <button type="submit" class="save-button">
+
+                🫙 存入约定罐
+
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- 屏5：我的约定页 -->
+    <!-- ========================= -->
+    <section id="screen-list" class="screen">
+
+        <div class="page-header">
+
+            <button class="back-btn" data-target="screen-menu">
+                ← 返回
+            </button>
+
+            <h2>我的约定</h2>
+
+            <span id="promiseCount">
+                0 个约定
+            </span>
+
+        </div>
+
+
+        <div id="promiseList"></div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- 屏6：约定详情 -->
+    <!-- ========================= -->
+
+    <section id="screen-detail" class="screen">
+
+        <div class="page-header">
+
+            <button class="back-btn" data-target="screen-list">
+                ← 返回
+            </button>
+
+            <h2>约定详情</h2>
+
+        </div>
+
+
+        <div class="promise-detail-card">
+
+            <div class="detail-jar">
+                🫙
+            </div>
+
+            <h1 id="detailTitle">
+                约定名称
+            </h1>
+
+
+            <div id="detailDescription" class="detail-description">
+                约定内容
+            </div>
+
+
+            <div class="detail-info">
+
+                <div id="detailLocation">
+                    📍 未设置地点
+                </div>
+
+                <div id="detailDate">
+                    📅 未设置日期
+                </div>
+
+                <div id="detailStatus">
+                    状态：进行中
+                </div>
+
+                <div id="detailCreatedAt">
+                </div>
+
+            </div>
+
+
+            <button id="detailEditBtn" class="save-button">
+
+                ✏️ 编辑这个约定
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- 屏7：编辑约定 -->
+    <!-- ========================= -->
+
+    <section id="screen-edit" class="screen">
+
+        <div class="page-header">
+
+            <button class="back-btn" data-target="screen-list">
+                ← 返回
+            </button>
+
+            <h2>编辑约定</h2>
+
+        </div>
+
+
+        <form id="editPromiseForm" class="create-form">
+
+            <input type="hidden" id="editPromiseId">
+
+
+            <div class="form-group">
+
+                <label for="editTitle">
+                    约定名称
+                </label>
+
+                <input type="text" id="editTitle" placeholder="例如：一起去看海" required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="editDescription">
+                    约定内容
+                </label>
+
+                <textarea id="editDescription" placeholder="写下你们之间的约定..." required></textarea>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="editLocation">
+                        地点
+                    </label>
+
+                    <input type="text" id="editLocation" placeholder="例如：青岛">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="editPromiseDate">
+                        约定日期
+                    </label>
+
+                    <input type="date" id="editPromiseDate">
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="editStatus">
+                    约定状态
+                </label>
+
+                <select id="editStatus" class="status-select">
+
+                    <option value="ACTIVE">
+                        进行中
+                    </option>
+
+                    <option value="IN_PROGRESS">
+                        执行中
+                    </option>
+
+                    <option value="COMPLETED">
+                        已完成
+                    </option>
+
+                    <option value="EXPIRED">
+                        已过期
+                    </option>
+
+                    <option value="CANCELLED">
+                        已取消
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button type="submit" class="save-button">
+
+                💾 保存修改
+
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- 屏8：回忆馆 -->
+    <!-- ========================= -->
+    <section id="screen-memory" class="screen">
+
+        <div class="page-header">
+
+            <button class="back-btn" data-target="screen-menu">
+                ← 返回
+            </button>
+
+            <h2>🌙 回忆馆</h2>
+
+        </div>
+
+
+        <div class="empty-tip">
+
+            <p>
+                这里会存下你已经实现的约定，
+                等约定完成的那天，它会自动飘到这里。
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- 屏9：关于页 -->
+    <!-- ========================= -->
+    <section id="screen-about" class="screen">
+
+        <div class="page-header">
+
+            <button class="back-btn" data-target="screen-menu">
+                ← 返回
+            </button>
+
+            <h2>✦ 关于约定罐</h2>
+
+        </div>
+
+
+        <div class="about-text">
+
+            <p>有些话，我们在关系亲密的时候说过。</p>
+
+            <p>“以后一定要一起去看海。”</p>
+
+            <p>“将来要住在一个小区哦！”</p>
+
+            <p>“我们一定会一起去瑞士旅居的！”</p>
+
+            <p>“毕业就一起去看TA的演唱会！”</p>
+
+            <p>未来，未来，人们总是心怀希望，畅想远方。</p>
+
+            <p>在日复一日的枯燥生活中，未来早已到来。</p>
+
+            <p>我们一直在等待戈多，却在某天恍然惊觉，
+                当时的畅想不过是生命中的一个普通的瞬间。</p>
+
+            <p>有些约定实现了，但大多数却被遗忘了。</p>
+
+            <p>有些人陪我们躲过雨，
+                最后却不过成为汇入大海的一粒沙。</p>
+
+            <p>于是有了这个罐子——
+                一个用来认真保存约定的地方。</p>
+
+            <p>希望很多年以后，当你再打开它，
+                还能记得：那时候的我们，曾经认真地约定过。</p>
+
+            <p>那时候的我们，真真切切地想过永远。</p>
+
+        </div>
+
+    </section>
+    <!-- ========================= -->
+    <!-- 我的约定对象页面 -->
+    <!-- ========================= -->
+
+    <section id="screen-partners" class="screen">
+
+        <div class="page-header">
+
+            <button class="back-btn" data-target="screen-menu">
+                ← 返回
+            </button>
+
+            <h2>我的约定对象</h2>
+
+        </div>
+
+        <div class="partners-intro">
+            <p>保存那些与你有约定的人和角色。</p>
+            <p>让每一个约定，都有一个值得记住的名字。</p>
+        </div>
+
+        <div class="partners-toolbar">
+
+            <button id="createPartnerBtn" class="save-button">
+                ＋ 创建约定对象
+            </button>
+
+        </div>
+
+        <!-- 新增 / 编辑对象表单 -->
+        <form id="partnerForm" class="create-form hidden">
+
+            <h3 id="partnerFormTitle">创建约定对象</h3>
+
+            <input type="hidden" id="partnerId">
+
+            <div class="form-group">
+
+                <label for="partnerName">对象名称</label>
+
+                <input type="text" id="partnerName" placeholder="例如：小林、未来的自己、星野" maxlength="100" required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="partnerType">对象类型</label>
+
+                <select id="partnerType" class="status-select" required>
+
+                    <option value="CUSTOM">自定义对象</option>
+
+                    <option value="CHARACTER">虚拟角色</option>
+
+                </select>
+
+                <small class="form-hint">
+                    真实用户绑定功能暂未开放，你可以先创建虚拟角色或自定义对象。
+                </small>
+
+            </div>
+
+            <div class="partner-form-actions">
+
+                <button type="submit" class="save-button" id="savePartnerBtn">
+                    保存对象
+                </button>
+
+                <button type="button" class="partner-cancel-btn" id="cancelPartnerBtn">
+                    取消
+                </button>
+
+            </div>
+
+        </form>
+
+        <!-- 对象数量 -->
+        <div class="partners-list-header">
+            <h3>我的对象</h3>
+            <span id="partnerCount">0 个对象</span>
+        </div>
+
+        <!-- 对象列表 -->
+        <div id="partnerList">
+
+            <div class="partner-empty">
+                <div class="partner-empty-icon">🫙</div>
+                <p>还没有约定对象。</p>
+                <p>创建一个，开始保存你们之间的故事吧。</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        🫙 约定已经存入罐子
+    </div>
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>

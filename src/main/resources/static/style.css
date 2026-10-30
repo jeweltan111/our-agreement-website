@@ -1,0 +1,947 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Microsoft YaHei", Arial, sans-serif;
+    background: #f7f3ed;
+    color: #3f3a34;
+    min-height: 100vh;
+}
+
+/* 所有屏幕默认隐藏，只有active的显示 */
+.screen {
+    display: none;
+    min-height: 100vh;
+    animation: fadeIn 0.6s ease;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 开场页 */
+#screen-intro {
+    display: none;
+    text-align: center;
+    padding-top: 25vh;
+}
+
+#screen-intro.active {
+    display: block;
+}
+
+.jar-icon {
+    font-size: 80px;
+    margin-bottom: 30px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.intro-title {
+    font-size: 22px;
+    font-weight: normal;
+    margin-bottom: 40px;
+    color: #5f6f52;
+    line-height: 1.8;
+}
+
+.start-btn {
+    padding: 14px 50px;
+    border: none;
+    border-radius: 30px;
+    background: #5f6f52;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* 主菜单页 */
+#screen-menu {
+    padding: 80px 20px 40px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.menu-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.menu-logo {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.menu-subtitle {
+    color: #8a8177;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-btn {
+    padding: 28px;
+    border: none;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.2s;
+}
+
+.menu-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+}
+
+.btn-icon {
+    font-size: 24px;
+}
+
+/* 内页通用头部 */
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 30px 20px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.back-btn {
+    border: none;
+    background: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #5f6f52;
+}
+
+/* 表单、列表样式和之前一致 */
+.create-form {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.form-group {
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 15px;
+    outline: none;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.save-button {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #5f6f52;
+    color: white;
+}
+
+.promise-card {
+    max-width: 800px;
+    margin: 0 auto 15px;
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.promise-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.promise-description {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.promise-info {
+    display: flex;
+    gap: 20px;
+    color: #888;
+    font-size: 14px;
+}
+
+.promise-status {
+    margin-top: 15px;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: #eef2ea;
+    color: #5f6f52;
+    font-size: 13px;
+}
+
+.empty-tip,
+.about-text {
+    max-width: 800px;
+    margin: 30px auto;
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    line-height: 2;
+    color: #666;
+}
+
+/* 成功提示弹窗 */
+.toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px 30px;
+    border-radius: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.shturl.cc/ {
+    opacity: 1;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* =====================
+   登录 / 注册页
+===================== */
+#screen-auth {
+    padding-top: 8vh;
+}
+
+.auth-container {
+    max-width: 420px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 24px;
+    padding: 40px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.auth-logo {
+    font-size: 64px;
+    margin-bottom: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.auth-container h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+    color: #8a8177;
+    margin-bottom: 30px;
+}
+
+.auth-choice {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form {
+    text-align: left;
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 22px;
+}
+
+.auth-main-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #5f6f52;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.auth-main-btn:hover {
+    opacity: 0.9;
+}
+
+.auth-secondary-btn {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #5f6f52;
+    border-radius: 12px;
+    background: white;
+    color: #5f6f52;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.auth-secondary-btn:hover {
+    background: #f5f7f2;
+}
+
+.auth-back-btn {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: #8a8177;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.auth-back-btn:hover {
+    color: #5f6f52;
+}
+
+.auth-form .auth-main-btn {
+    margin-top: 10px;
+}
+
+/* =====================
+   当前用户 & 退出
+===================== */
+.current-user {
+    margin-top: 15px;
+    font-size: 15px;
+    color: #5f6f52;
+}
+
+.current-user span {
+    font-weight: bold;
+}
+
+.logout-btn {
+    margin-top: 12px;
+    padding: 8px 20px;
+    border: 1px solid #c9bdb0;
+    background: white;
+    color: #8a8177;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    color: #c0392b;
+    border-color: #e6b8af;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .auth-container {
+        margin: 0 15px;
+        padding: 30px 20px;
+    }
+}
+
+
+/* =========================
+   登录 / 注册页面（新版覆盖）
+   ========================= */
+
+.auth-container {
+    width: min(90%, 420px);
+    margin: 0 auto;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.auth-logo {
+    font-size: 64px;
+    margin-bottom: 10px;
+}
+
+.auth-container h1 {
+    margin-bottom: 10px;
+}
+
+.auth-subtitle {
+    opacity: 0.7;
+    margin-bottom: 35px;
+}
+
+
+/* 登录注册按钮 */
+
+.auth-choice {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+
+.auth-main-btn,
+.auth-secondary-btn {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.25s ease;
+}
+
+
+.auth-main-btn {
+    background: #333;
+    color: white;
+}
+
+
+.auth-secondary-btn {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+.auth-main-btn:hover,
+.auth-secondary-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* 表单 */
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    text-align: left;
+}
+
+
+.auth-form h2 {
+    text-align: center;
+}
+
+
+.auth-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.auth-form input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    font-size: 15px;
+    outline: none;
+}
+
+
+.auth-form input:focus {
+    border-color: #888;
+}
+
+
+/* 返回按钮 */
+
+.auth-back-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 8px;
+}
+
+
+/* 隐藏 */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* 当前用户 */
+
+.current-user {
+    margin-top: 10px;
+    opacity: 0.75;
+}
+
+
+.logout-btn {
+    margin-top: 12px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+
+.logout-btn:hover {
+    opacity: 1;
+}
+
+/* =========================
+   Promise CRUD 操作按钮
+========================= */
+
+.promise-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.promise-action-btn {
+    flex: 1;
+    padding: 9px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.view-btn {
+    border: 1px solid #5f6f52;
+    background: white;
+    color: #5f6f52;
+}
+
+.edit-btn {
+    border: 1px solid #c9bdb0;
+    background: white;
+    color: #6f665e;
+}
+
+.delete-btn {
+    border: 1px solid #e6b8af;
+    background: white;
+    color: #c0392b;
+}
+
+.promise-action-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   空约定
+========================= */
+
+.empty-promise-card {
+    text-align: center;
+    color: #888;
+    padding: 50px 20px;
+}
+
+.empty-jar {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+
+/* =========================
+   约定详情
+========================= */
+
+.promise-detail-card {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 45px 35px;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.detail-jar {
+    font-size: 70px;
+    margin-bottom: 20px;
+}
+
+.promise-detail-card h1 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #3f3a34;
+}
+
+.detail-description {
+    padding: 20px;
+    background: #f7f3ed;
+    border-radius: 15px;
+    line-height: 1.9;
+    color: #666;
+    margin-bottom: 25px;
+    white-space: pre-wrap;
+}
+
+.detail-info {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.detail-info div {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+
+/* =========================
+   编辑页面下拉框
+========================= */
+
+.status-select {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 15px;
+    background: white;
+    outline: none;
+}
+
+.status-select:focus {
+    border-color: #5f6f52;
+}
+
+
+/* =========================
+   手机适配
+========================= */
+
+@media (max-width: 600px) {
+
+    .promise-detail-card {
+        margin: 20px 15px;
+        padding: 35px 20px;
+    }
+
+    .promise-actions {
+        flex-direction: column;
+    }
+
+    .promise-action-btn {
+        width: 100%;
+    }
+
+}
+
+/* =========================
+   我的约定对象页面
+========================= */
+
+.partners-intro {
+    max-width: 800px;
+    margin: 10px auto 25px;
+    padding: 0 20px;
+    text-align: center;
+    line-height: 1.9;
+    color: #8a8177;
+}
+
+.partners-toolbar {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    padding: 0 20px;
+}
+
+.partners-toolbar .save-button {
+    max-width: 800px;
+}
+
+.partners-list-header {
+    max-width: 800px;
+    margin: 0 auto 18px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.partners-list-header h3 {
+    font-size: 20px;
+    color: #3f3a34;
+}
+
+.partners-list-header span {
+    font-size: 14px;
+    color: #8a8177;
+}
+
+#partnerForm {
+    margin-bottom: 30px;
+}
+
+#partnerForm h3 {
+    margin-bottom: 25px;
+    font-size: 21px;
+    color: #3f3a34;
+}
+
+.form-hint {
+    display: block;
+    margin-top: 8px;
+    color: #8a8177;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.partner-form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.partner-cancel-btn {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d8d0c6;
+    border-radius: 12px;
+    background: #fff;
+    color: #6f665e;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.partner-cancel-btn:hover {
+    background: #f7f3ed;
+}
+
+#partnerList {
+    padding: 0 20px;
+    max-width: 840px;
+    margin: 0 auto;
+}
+
+.partner-card {
+    background: white;
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.partner-card-main {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 0;
+}
+
+.partner-avatar {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f1eee5;
+    font-size: 28px;
+}
+
+.partner-card-info {
+    min-width: 0;
+}
+
+.partner-card-info h3 {
+    margin-bottom: 8px;
+    font-size: 18px;
+    overflow-wrap: anywhere;
+}
+
+.partner-type {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #eef2ea;
+    color: #5f6f52;
+    font-size: 12px;
+}
+
+.partner-card-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.partner-edit-btn,
+.partner-delete-btn {
+    padding: 8px 13px;
+    border-radius: 9px;
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.partner-edit-btn {
+    border: 1px solid #c9bdb0;
+    color: #6f665e;
+}
+
+.partner-delete-btn {
+    border: 1px solid #e6b8af;
+    color: #c0392b;
+}
+
+.partner-edit-btn:hover,
+.partner-delete-btn:hover {
+    transform: translateY(-1px);
+}
+
+.partner-empty {
+    padding: 50px 20px;
+    text-align: center;
+    background: white;
+    border-radius: 18px;
+    color: #8a8177;
+    line-height: 2;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+.partner-empty-icon {
+    margin-bottom: 15px;
+    font-size: 48px;
+}
+
+#savePartnerBtn:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+@media (max-width: 600px) {
+
+    .partner-card {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 18px;
+    }
+
+    .partner-card-main {
+        width: 100%;
+    }
+
+    .partner-card-actions {
+        width: 100%;
+    }
+
+    .partner-edit-btn,
+    .partner-delete-btn {
+        flex: 1;
+        padding: 10px;
+    }
+
+    #partnerForm {
+        margin-left: 15px;
+        margin-right: 15px;
+        padding: 24px 20px;
+    }
+
+    .partners-intro {
+        font-size: 14px;
+    }
+
+}
+
+/* ==============================
+   约定对象下拉框
+============================== */
+
+#promisePartner {
+    width: 100%;
+    min-height: 52px;
+    padding: 0 16px;
+
+    font-size: 15px;
+    font-family: inherit;
+    color: #51463f;
+
+    background-color: #fffdf9;
+}
