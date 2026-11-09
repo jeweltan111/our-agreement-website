@@ -4,33 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>约定罐</title>
+    <title>Promise Jar · 约定罐</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="tide/tide.css">
 </head>
 
 <body>
 
-    <!-- ========================= -->
-    <!-- 屏1：开场页 -->
-    <!-- ========================= -->
-    <section id="screen-intro" class="screen active">
-
-        <div class="intro-content">
-
-            <div class="jar-icon">🫙</div>
-
-            <h1 class="intro-title">
-                有些话，说出口以后，值得被好好保存。
-            </h1>
-
-            <button class="start-btn" id="startBtn">
-                开始
-            </button>
-
+    <div class="tide-world" aria-hidden="true">
+        <div class="tide-sky"><span class="tide-sun"></span></div>
+        <div class="tide-sea">
+            <canvas class="tide-water"></canvas>
         </div>
-
+    </div>
+    <section id="screen-intro" class="screen active">
+        <header class="tide-masthead">
+            <span>✧ &nbsp; 约定罐</span>
+            <span data-tide-label>潮汐来信</span>
+        </header>
+        <div class="tide-copy">
+            <p class="tide-kicker"><span></span> 序章 · 潮汐来信</p>
+            <h1>Promise<br><em>Jar.</em></h1>
+            <p class="tide-tagline" lang="en">A little world of promises.</p>
+            <p class="tide-caption">有些话，说出口以后，值得被好好保存。</p>
+        </div>
+        <div class="tide-arrival">
+            <div class="tide-bottle">
+                <div class="tide-glass" aria-hidden="true">
+                    <img class="tide-glass-art" src="tide/painted-bottle.webp" alt="">
+                    <img class="tide-keepsakes" src="tide/painted-keepsakes.webp" alt="">
+                </div>
+                <button type="button" id="startBtn" class="tide-star" aria-label="点击许愿星，展开登录和注册信笺"></button>
+            </div>
+            <p class="tide-instruction">✧ &nbsp; 点击许愿星，打开来信</p>
+        </div>
+        <footer class="tide-footer"><span>潮水捎来了一封信</span><span>01 &nbsp; / &nbsp; PROLOGUE</span></footer>
     </section>
-
 
     <!-- ========================= -->
     <!-- 屏2：登录 / 注册页 -->
@@ -39,14 +48,12 @@
 
         <div class="auth-container">
 
-            <div class="auth-logo">
-                🫙
-            </div>
+            <p class="tide-letter-kicker">✧ &nbsp; A LETTER FROM THE TIDE</p>
 
             <h1>欢迎来到约定罐</h1>
 
             <p class="auth-subtitle">
-                把说过的话，好好存起来。
+                这封信，等你来落款。
             </p>
 
 
@@ -81,7 +88,7 @@
                         用户名
                     </label>
 
-                    <input type="text" id="loginUsername" placeholder="请输入用户名" required>
+                    <input type="text" id="loginUsername" autocomplete="username" placeholder="请输入用户名" required>
 
                 </div>
 
@@ -92,7 +99,7 @@
                         密码
                     </label>
 
-                    <input type="password" id="loginPassword" placeholder="请输入密码" required>
+                    <input type="password" id="loginPassword" autocomplete="current-password" placeholder="请输入密码" required>
 
                 </div>
 
@@ -123,7 +130,7 @@
                         用户名
                     </label>
 
-                    <input type="text" id="registerUsername" placeholder="例如：xiaoming" required>
+                    <input type="text" id="registerUsername" autocomplete="username" placeholder="例如：xiaoming" required>
 
                 </div>
 
@@ -134,7 +141,7 @@
                         昵称
                     </label>
 
-                    <input type="text" id="registerNickname" placeholder="别人会看到的名字" required>
+                    <input type="text" id="registerNickname" autocomplete="nickname" placeholder="别人会看到的名字" required>
 
                 </div>
 
@@ -145,7 +152,7 @@
                         密码
                     </label>
 
-                    <input type="password" id="registerPassword" placeholder="至少 6 位密码" minlength="6" required>
+                    <input type="password" id="registerPassword" autocomplete="new-password" placeholder="至少 6 位密码" minlength="6" required>
 
                 </div>
 
@@ -703,12 +710,14 @@
     </section>
 
     <!-- Toast -->
-    <div id="toast" class="toast">
+    <div id="toast" class="toast" role="status">
         🫙 约定已经存入罐子
     </div>
 
 
     <script src="app.js"></script>
+    <script src="tide/tide.js"></script>
+    <script src="tide/water.js"></script>
 
 </body>
 
