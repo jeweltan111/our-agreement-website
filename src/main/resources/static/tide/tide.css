@@ -1,0 +1,249 @@
+:root {
+    --tide-sky: #758d83;
+    --tide-horizon: #ddc58d;
+    --tide-orb: #fff1b5;
+    --tide-orb-y: 19%;
+    --tide-wash: rgba(82, 140, 125, .08);
+    --tide-ink: #f9e9c8;
+}
+:root[data-tide="morning"] {
+    --tide-sky: #8c8785;
+    --tide-horizon: #f4bc8c;
+    --tide-orb: #ffe3b2;
+    --tide-orb-y: 64%;
+    --tide-wash: rgba(164, 106, 92, .19);
+}
+:root[data-tide="night"] {
+    --tide-sky: #101e37;
+    --tide-horizon: #567981;
+    --tide-orb: #e4ece0;
+    --tide-orb-y: 21%;
+    --tide-wash: rgba(14, 35, 66, .43);
+}
+.tide-world {
+    display: none;
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: #1b4749;
+}
+body:has(#screen-intro.active, #screen-auth.active) .tide-world { display: block; }
+.tide-sky {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 38%;
+    background: linear-gradient(173deg, var(--tide-sky), var(--tide-horizon));
+}
+.tide-sky::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url(shore.jpg) 20% 22% / cover;
+    opacity: .43;
+    mix-blend-mode: soft-light;
+}
+.tide-sun {
+    position: absolute;
+    top: var(--tide-orb-y);
+    right: 17%;
+    width: clamp(40px, 7vw, 104px);
+    aspect-ratio: 1;
+    border-radius: 48% 52% 50% 49%;
+    background: radial-gradient(circle at 39% 41%, var(--tide-orb) 45%, transparent 76%);
+    box-shadow: 0 0 48px #ffe9bd48;
+    opacity: .88;
+}
+.tide-sea {
+    position: absolute;
+    inset: 21% -2% -2%;
+    background: url(shore-calm.webp) center / cover;
+    mask-image: linear-gradient(transparent, #000 13%);
+
+}
+.tide-world::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #071d25b8 0%, #071d2544 46%, transparent 72%),
+        linear-gradient(0deg, #061a23a8, transparent 21%);
+}
+.tide-sea::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--tide-wash);
+}
+.tide-water {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+}
+.tide-water[data-ready] { visibility: visible; }
+.tide-sea:has(.tide-water[data-ready]) { background-image: none; }
+
+#screen-intro.active, #screen-auth.active {
+    position: relative;
+    isolation: isolate;
+    min-height: 100svh;
+    padding: 0;
+    animation: none;
+}
+#screen-intro { color: var(--tide-ink); font-family: Georgia, "Songti SC", SimSun, serif; text-align: left; }
+.tide-masthead, .tide-footer {
+    position: absolute;
+    inset-inline: 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: clamp(10px, 1.2vw, 15px);
+    letter-spacing: .18em;
+}
+.tide-masthead { top: 0; padding: 23px 0 15px; border-bottom: 1px solid #f9e9c858; }
+.tide-footer { bottom: 0; padding: 15px 0 20px; border-top: 1px solid #f9e9c858; }
+.tide-copy { position: absolute; z-index: 1; top: 20%; left: 10%; pointer-events: none; }
+.tide-kicker { display: flex; align-items: center; gap: .8em; font-size: 12px; letter-spacing: .26em; }
+.tide-kicker span { width: 25px; height: 1px; background: currentColor; }
+.tide-copy h1 {
+    margin: .13em 0 .16em;
+    font-weight: 400;
+    font-size: clamp(64px, min(11vw, 16vh), 172px);
+    line-height: .77;
+    letter-spacing: -.08em;
+    text-shadow: 0 3px 28px #081d25a8;
+}
+.tide-copy h1 em { color: #f5ce91; font-weight: 400; }
+.tide-tagline { font-style: italic; font-size: clamp(16px, 2.1vw, 27px); }
+.tide-caption { margin-top: 1.25em; font-size: clamp(12px, 1.2vw, 16px); letter-spacing: .11em; }
+.tide-arrival {
+    position: absolute;
+    z-index: 2;
+    left: 64%;
+    top: 34%;
+    width: clamp(180px, min(26vw, 40vh), 360px);
+    transform: translate(calc(-50% + var(--drift-x, 0px)), var(--drift-y, 0px)) scale(var(--drift-scale, 1));
+    transform-origin: 50% 48%;
+}
+.tide-bottle {
+    position: relative;
+    width: 83%;
+    margin-inline: auto;
+    aspect-ratio: 4 / 5;
+    opacity: var(--bottle-opacity, 1);
+    transform: rotate(var(--drift-angle, -4deg));
+    filter: drop-shadow(0 12px 12px #082b3060);
+}
+.tide-glass {
+    position: absolute;
+    inset: 0;
+    mask-image: linear-gradient(173deg, #000 calc(var(--waterline, 105%) - 5%), #0003 var(--waterline, 105%), transparent calc(var(--waterline, 105%) + 8%));
+}
+.tide-glass-art { display: block; width: 100%; height: 100%; object-fit: contain; }
+.tide-keepsakes {
+    position: absolute;
+    left: 20%;
+    top: 37%;
+    width: 60%;
+    opacity: .93;
+}
+#screen-intro:has(.tide-arrival[data-drifting]) .tide-copy { z-index: 3; }
+.tide-arrival[data-drifting] .tide-instruction { visibility: hidden; }
+.tide-arrival[data-drifting] .tide-star { pointer-events: none; }
+.tide-star {
+    position: absolute;
+    left: 48.1%;
+    top: 57.4%;
+    width: 15%;
+    min-width: 44px;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+}
+.tide-star:hover { background: #ffd77d18; box-shadow: 0 0 18px 5px #ffd77d70; }
+.tide-star:focus-visible { outline: 2px dashed #fff2c2; outline-offset: 4px; }
+.tide-instruction {
+    margin: -.35em auto 0;
+    width: max-content;
+    max-width: 100%;
+    padding: .68em 1.05em;
+    border: 1px solid #f9e9c869;
+    border-radius: 40px;
+    background: #0b3036dc;
+    font-size: clamp(10px, 1.2vw, 14px);
+    letter-spacing: .11em;
+}
+
+#screen-auth.active {
+    display: grid;
+    place-items: center;
+    padding: 22px 12px;
+    background: #1236384a;
+}
+#screen-auth .auth-container {
+    position: relative;
+    z-index: 0;
+    width: min(100%, 440px);
+    max-width: 440px;
+    min-height: 526px;
+    padding: 74px 46px 83px;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #422b21;
+    font-family: Georgia, "Songti SC", SimSun, serif;
+    filter: drop-shadow(0 16px 24px #0b2428a8);
+    animation: tide-unroll .52s cubic-bezier(.2,.75,.3,1) both;
+}
+#screen-auth .auth-container::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: url(letter.webp) center / 100% 100%;
+}
+@keyframes tide-unroll { from { opacity: 0; clip-path: inset(0 0 92%); transform: translateY(15px); } to { opacity: 1; clip-path: inset(-30%); } }
+.tide-letter-kicker { color: #6a4935; font-size: 10px; letter-spacing: .18em; margin-bottom: 10px; }
+#screen-auth .auth-container h1 { color: #462d23; margin-bottom: 6px; font-size: clamp(23px, 5vw, 30px); }
+#screen-auth .auth-subtitle { color: #614431; margin-bottom: 20px; opacity: 1; }
+#screen-auth .auth-choice, #screen-auth .auth-form { gap: 10px; }
+#screen-auth .auth-form h2 { color: #5a3828; font-size: 17px; margin: 0 0 3px; }
+#screen-auth .form-group { margin: 0; gap: 3px; }
+#screen-auth label { color: #483024; }
+#screen-auth .auth-form input {
+    background: #ffefc68a;
+    color: #35251d;
+    border: 1px solid #9a7359;
+    border-radius: 5px;
+    padding: 9px 10px;
+    font-size: 16px;
+}
+#screen-auth .auth-main-btn, #screen-auth .auth-secondary-btn { border-radius: 5px; padding: 10px 14px; }
+#screen-auth .auth-main-btn { background: #733c33; color: #fff3d7; }
+#screen-auth .auth-main-btn:hover { background: #592b24; }
+#screen-auth .auth-secondary-btn { background: #ffeecb70; border: 1px solid #825b46; color: #593a29; }
+#screen-auth .auth-back-btn { color: #583b2b; }
+#screen-auth :is(button, input):focus-visible { outline: 2px solid #583629; outline-offset: 2px; }
+#screen-auth .auth-form.hidden, #screen-auth .auth-choice.hidden { display: none; }
+
+@media (max-width: 620px) {
+    #screen-intro.active { min-height: max(640px, 100svh); }
+    .tide-copy { top: 13%; left: 8%; }
+    .tide-copy h1 { font-size: clamp(64px, 18vw, 100px); }
+    .tide-arrival { top: auto; bottom: 11%; left: 62%; width: clamp(174px, 47vw, 245px); }
+    .tide-sea { background-position: 44% center; }
+    #screen-auth .auth-container { padding-inline: clamp(30px, 11vw, 46px); }
+}
+@media (max-height: 550px) and (min-width: 621px) {
+    #screen-intro.active { min-height: 550px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #screen-auth .auth-container { animation: none; }
+    .tide-arrival { transform: translateX(-50%); }
+}
